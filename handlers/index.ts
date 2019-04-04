@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 import Hapi, { ResponseToolkit } from "hapi";
 import { RegisterUserAndVehicleDTO } from "../lib/factories/RegisterUserAndVehicleDTO";
 import { CompositionRoot } from "../lib/application-services/CompositionRoot";
@@ -15,20 +17,20 @@ const server= new Hapi.Server({
 server.route({
     method:'POST',
     path:'/register',
-    handler: (request: Request, h:ResponseToolkit) {
+    handler: async (request: any, h:any) =>{
+
+        console.log("payload:", request.payload);
 
         let service:IRegisterUserAndVehicleService = container.resolve<IRegisterUserAndVehicleService>(DependencyConstants.REGISTER_USER_AND_VEHICLE_SERVICE);
 
-        return request.json()
-                .then((dto:RegisterUserAndVehicleDTO) => {
-                    return service.Run(dto);
-                })
-                .then(() => {
-                    return h.response({success:true})
-                })
-                .catch((err:any) => {
-                    return h.response({success:false, error: err});
-                });
+        try {
+            await service.Run(request.payload);
+            return h.response({success:true})
+        } catch (error) {
+            console.log("error:", error);
+            return h.response({success:false, error: error + ""});
+        }
+         
     }
 });
 

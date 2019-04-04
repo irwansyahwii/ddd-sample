@@ -18,35 +18,27 @@ export class RegisterUserAndVehicleService implements IRegisterUserAndVehicleSer
 
     }
 
-    Run(dto: RegisterUserAndVehicleDTO):Promise<any>{
-        let searchUser:Promise<User>;
+    async Run(dto: RegisterUserAndVehicleDTO):Promise<any>{
 
-        if(dto.companyRegId){
-            searchUser = this.userRepo.GetByCompanyRegId(dto.companyRegId);
-        }else if(dto.nationalId){
-            searchUser = this.userRepo.GetByNationalId(dto.nationalId);
-        }else if(dto.passportNo){
-            searchUser = this.userRepo.GetByPassportNo(dto.passportNo);
-        }else{
-            throw new DomainError("Failed to register user and vehicle. Either company reg id or national id or passport no is required");
-        }
+            let user:User;
 
-        return searchUser
-            .then((user:User) => {
-                if(!user){
-                    user = UserFactory.CreateUserFromDTO(dto)
-                    return this.userRepo.RegisterUser(user);                    
-                }else{
-                    return Promise.resolve(user);
-                }
-            })
-            .then((user:User) => {
-                let vehicle = VehicleFactory.CreateVehicleFromRegistrationDTO(dto);
-
-                return this.vehicleRepo.Create(vehicle);
-            })
-            .catch((err:any) => {
-                throw err;
-            })
+            if(dto.companyRegId){
+                user = await this.userRepo.GetByCompanyRegId(dto.companyRegId);
+            }else if(dto.nationalId){
+                user = await this.userRepo.GetByNationalId(dto.nationalId);
+            }else if(dto.passportNo){
+                user = await this.userRepo.GetByPassportNo(dto.passportNo);
+            }else{
+                throw new DomainError("Failed to register user and vehicle. Either company reg id or national id or passport no is required");
+            }
+    
+            if(!user){
+                user = UserFactory.CreateUserFromDTO(dto)
+                await this.userRepo.RegisterUser(user);                    
+            }
+            let vehicle = VehicleFactory.CreateVehicleFromRegistrationDTO(dto);
+    
+            await this.vehicleRepo.Create(vehicle);
+                
     }
 }
