@@ -1,0 +1,20 @@
+{
+  "name": "myi-sls-ddd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/hapi": "^18.0.1",
+    "hapi": "^18.1.0",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^3.0.1"
+  }
+}
