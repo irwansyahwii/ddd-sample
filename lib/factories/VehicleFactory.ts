@@ -3,9 +3,24 @@ import { Vehicle } from "../domain-models/Vehicle";
 import { Vin } from "../domain-models/Vin";
 import { DomainError } from "../domain-models/DomainError";
 import { VehicleModel } from "../domain-models/VehicleModel";
+import Joi from "joi";
 
 export class VehicleFactory{
     static CreateVehicleFromRegistrationDTO(dto:IRegisterUserAndVehicleDTO):Vehicle{
+        const schema = Joi.object().keys({
+            licensePlate: Joi.string().min(2).max(8),
+            marketingImageUrl: Joi.string().min(2).max(255),
+            marketingName: Joi.string().min(3).max(100),
+            modelCode: Joi.string().min(3).max(20).required(),
+            modelName: Joi.string().min(3).max(100),
+            transmissionSystem: Joi.string().min(3).max(20).required(),
+            vin: Joi.string().min(3).max(50).required(),
+        });
+
+        let result = Joi.validate(dto, schema, {allowUnknown:true});
+        if (result.error){
+            throw new DomainError(result.error.message);
+        }
         
         dto.vin = dto.vin || "";
         if(dto.vin.trim().length <= 0){

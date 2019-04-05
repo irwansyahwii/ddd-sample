@@ -7,14 +7,19 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc -p . && node dist/handlers"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/hapi": "^18.0.1",
     "hapi": "^18.1.0",
+    "joi": "^14.3.1",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/joi": "^14.3.2"
   }
 }
