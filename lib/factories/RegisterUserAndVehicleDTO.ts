@@ -1,14 +1,16 @@
-export class RegisterUserAndVehicleDTO{
-    public nationalId?: string;
-    public passportNo?:string;
-    public companyRegId?:string;
-    public companyBranchId?:string;
-    public companyName?:string;
+export interface IRegisterUserAndVehicleDTO{
+    nationalId?: string;
+    passportNo?:string;
+    companyRegId?:string;
+    companyBranchId?:string;
+    companyName?:string;
+    password:string;
 
-    public vin:string = "";
-    public licensePlate:string = "";
-    public modelCode:string = "";
-    public transmissionSystem:string = "";
-    public marketingName:string = "";
-    public marketingImageUrl:string = "";
+    vin:string;
+    licensePlate:string;
+    modelCode:string;
+    modelName:string;
+    transmissionSystem:string;
+    marketingName:string;
+    marketingImageUrl:string;
 }

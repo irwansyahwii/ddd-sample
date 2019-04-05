@@ -1,7 +1,7 @@
 import "reflect-metadata";
 
 import Hapi, { ResponseToolkit } from "hapi";
-import { RegisterUserAndVehicleDTO } from "../lib/factories/RegisterUserAndVehicleDTO";
+import { IRegisterUserAndVehicleDTO } from "../lib/factories/RegisterUserAndVehicleDTO";
 import { CompositionRoot } from "../lib/application-services/CompositionRoot";
 import { IRegisterUserAndVehicleService} from "../lib/application-services";
 import { container } from "tsyringe";
@@ -25,7 +25,7 @@ server.route({
 
         try {
             await service.Run(request.payload);
-            return h.response({success:true})
+            return h.response({success:true});
         } catch (error) {
             console.log("error:", error);
             return h.response({success:false, error: error + ""});

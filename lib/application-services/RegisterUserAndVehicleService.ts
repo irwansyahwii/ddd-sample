@@ -1,4 +1,4 @@
-import { RegisterUserAndVehicleDTO } from "../factories/RegisterUserAndVehicleDTO";
+import { IRegisterUserAndVehicleDTO } from "../factories/RegisterUserAndVehicleDTO";
 import { IRegisterUserAndVehicleService } from "./IRegisterUserAndVehicleService";
 import { IUserRepository } from "../repositories/IUserRepository";
 import { User } from "../domain-models/User";
@@ -18,7 +18,7 @@ export class RegisterUserAndVehicleService implements IRegisterUserAndVehicleSer
 
     }
 
-    async Run(dto: RegisterUserAndVehicleDTO):Promise<any>{
+    async Run(dto: IRegisterUserAndVehicleDTO):Promise<any>{
 
             let user:User;
 

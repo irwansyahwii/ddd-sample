@@ -1,4 +1,4 @@
-import { RegisterUserAndVehicleDTO } from "../factories/RegisterUserAndVehicleDTO";
+import { IRegisterUserAndVehicleDTO } from "../factories/RegisterUserAndVehicleDTO";
 export interface IRegisterUserAndVehicleService {
-    Run(dto: RegisterUserAndVehicleDTO): Promise<any>;
+    Run(dto: IRegisterUserAndVehicleDTO): Promise<any>;
 }
